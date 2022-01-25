@@ -19,7 +19,9 @@ const days = [
     ['DOMINGO', 'Sunday']
 ]
 
-const Calendar = ({ navigation }) => {
+const Calendar = ({ navigation, user }) => {
+
+    console.log("user:", user)
 
     const [modalVisible, setModalVisible] = useState(false)
     const [modalData, setModalData] = useState({
@@ -32,10 +34,10 @@ const Calendar = ({ navigation }) => {
         quotas: '',       
     })
 
-    const { loading, error, data } = useQuery(weekScheduleAll)
+    const { loading, error, data } = useQuery(weekScheduleAll, {
+        fetchPolicy: 'only-network',
+    })
 
-    if (data) console.log("Schedules:", data)
-    
     const date = new Date()
     const day = date.getDate()
     const dayOfWeek = date.getDay()
@@ -60,18 +62,27 @@ const Calendar = ({ navigation }) => {
         data?.weekScheduleAll.forEach(schedule => {
             const fecha = new Date(schedule.startDate)
 
-            if (getHour(fecha.getUTCHours()) === hour) {
+            if (getHour(fecha.getHours()) === hour) {
                 if (schedule.days.includes(days[dayOfWeek - 1][1])) {
-                    available = true
                     emoji = schedule.workoutType.emoji
 
                     name = schedule.workoutType.name
                     emoji = schedule.workoutType.emoji
-                    instructor = schedule.instructor.firstName + ' ' + schedule.instructor.lastName
+                    instructor = schedule.instructor.firstName + ' ' 
+                        + schedule.instructor.lastName
                     startDate = schedule.startDate
                     dayss = schedule.days
                     price = schedule.price
                     quotas = schedule.quotas
+
+                    const students = Array.from(schedule.students, student => student.id);
+
+                    if (students.includes(user.id)) {
+                        busy = true
+                    } else {
+                        if (quotas === 0) unavailable = true
+                        else available = true
+                    }
                 }
             }
         })
@@ -101,11 +112,11 @@ const Calendar = ({ navigation }) => {
 
         if (unavailable)
             return (
-                <View style={styles.classBox}>
+                <TouchableOpacity style={styles.classBox} onPress={openModal}>
                     <View style={styles.unavailable}>
                         <Text style={styles.emoji}>{emoji}</Text>
                     </View>
-                </View>
+                </TouchableOpacity>
             )
 
         return (
@@ -130,18 +141,7 @@ const Calendar = ({ navigation }) => {
                     )}
                 </View>
                 <View style={styles.colClass}>
-                    {hours.map(hour =>
-                        <Class key={hour} hour={hour} />
-                    )}
-                    {/* <View style={styles.classBox}>
-                        <View style={styles.busy}>
-                            <Text style={styles.emoji}>🚴🏻‍♂️</Text>
-                        </View>
-                    </View>
-                    <View style={styles.classBox}>
-                        <View style={styles.empty}>
-                        </View>
-                    </View> */}
+                    {hours.map(hour => <Class key={hour} hour={hour} /> )}
                 </View>
             </View>
         </View>

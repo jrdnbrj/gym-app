@@ -7,15 +7,11 @@ import { createStackNavigator } from '@react-navigation/stack'
 
 const Stack = createStackNavigator()
 
-const StreamingRoutes = () => {
+const StreamingRoutes = tabProps => {
     return <Stack.Navigator initialRouteName="Streaming">
-        <Stack.Screen 
-            name='Streaming' component={Streaming} 
-            options={{ 
-                title: 'Streaming', 
-                header: props => {} 
-            }} 
-        />
+        <Stack.Screen name='Streaming' options={{ header: props => <Header {...props} /> }}>
+            {props => <Streaming {...props} {...tabProps} />}
+        </Stack.Screen>
     </Stack.Navigator>
 }
 

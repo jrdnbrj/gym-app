@@ -17,8 +17,8 @@ const Login = () => {
 
     const [userLogin, { loading, data }] = useMutation(UserLogin, {
         onCompleted: data => {
-            console.log("Login Data:", data)
             dispatch({ type: 'LOGIN' })
+            dispatch({ type: 'SET_USER', user: data.userLogin })
         },
         onError: error => {
             console.log("Login Error:", error.message)

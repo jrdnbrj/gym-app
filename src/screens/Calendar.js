@@ -8,15 +8,11 @@ import { createStackNavigator } from '@react-navigation/stack'
 
 const Stack = createStackNavigator()
 
-const CalendarRoutes = () => {
+const CalendarRoutes = tabProps => {
     return <Stack.Navigator initialRouteName="Calendar">
-        <Stack.Screen 
-            name='Calendar' component={Calendar} 
-            options={{ 
-                title: 'Calendario', 
-                header: props => <Header {...props} /> 
-            }} 
-        />
+        <Stack.Screen name='Calendar' options={{ header: props => <Header {...props} /> }}>
+            {props => <Calendar {...props} {...tabProps} />}
+        </Stack.Screen>
     </Stack.Navigator>
 }
 

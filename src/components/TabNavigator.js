@@ -3,6 +3,8 @@ import React from 'react'
 import { NavigationContainer } from '@react-navigation/native'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 
+import { useSelector } from 'react-redux'
+
 import IonIcon from 'react-native-vector-icons/Ionicons'
 
 import Calendar from '../screens/Calendar'
@@ -15,6 +17,8 @@ import Profile from '../screens/Profile'
 const Tab = createBottomTabNavigator()
 
 const TabNavigator = () => {
+
+    const user = useSelector(state => state.user.user)
 
     const screenOptions = ({ route }) => ({
         tabBarIcon: () => {
@@ -42,11 +46,21 @@ const TabNavigator = () => {
     return (
         <NavigationContainer>
             <Tab.Navigator initialRouteName="CalendarRoutes" screenOptions={screenOptions}>
-                <Tab.Screen name="CalendarRoutes" component={Calendar} />
-                <Tab.Screen name="TrainingRoutes" component={Training} />
-                <Tab.Screen name="RecipesRoutes" component={Recipes} />
-                <Tab.Screen name="StreamingRoutes" component={Streaming} />
-                <Tab.Screen name="ProfileRoutes" component={Profile} />
+                <Tab.Screen name="CalendarRoutes">
+                    {props => <Calendar {...props} user={user} />}
+                </Tab.Screen>
+                <Tab.Screen name="TrainingRoutes">
+                    {props => <Training {...props} user={user} />}
+                </Tab.Screen>
+                <Tab.Screen name="RecipesRoutes">
+                    {props => <Recipes {...props} user={user} />}
+                </Tab.Screen>
+                <Tab.Screen name="StreamingRoutes">
+                    {props => <Streaming {...props} user={user} />}
+                </Tab.Screen>
+                <Tab.Screen name="ProfileRoutes">
+                    {props => <Profile {...props} user={user} />}
+                </Tab.Screen>
             </Tab.Navigator>
         </NavigationContainer>
     )

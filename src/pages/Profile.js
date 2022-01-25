@@ -5,6 +5,7 @@ import { useDispatch } from 'react-redux'
 import { useMutation } from '@apollo/client'
 
 import healthRecordCreate from '../graphql/mutation/healthRecordCreate'
+import userLogout from '../graphql/mutation/userLogout'
 
 import StepCounter from '../components/StepCounter'
 
@@ -13,6 +14,7 @@ const Profile = ({ navigation }) => {
 
     const dispatch = useDispatch()
 
+    const [logout] = useMutation(userLogout)
     const [recordCreate, { loading, data }] = useMutation(healthRecordCreate, {
         onCompleted: data => {
             console.log("Health Record Create Data:", data)
@@ -23,24 +25,24 @@ const Profile = ({ navigation }) => {
     })
 
     useEffect(() => {
-        recordCreate({ 
-            variables: { 
-                clientID: "8bd8fbb6-82c4-4dae-a83b-6c539cb2d486",
-                weight: 50,
-                height: 60,
-                pulse: 70,
-                systolicPressure: 120,
-                diastolicPressure: 80
-            } 
-        })
+        // recordCreate({ 
+        //     variables: { 
+        //         clientID: "8bd8fbb6-82c4-4dae-a83b-6c539cb2d486",
+        //         weight: 50,
+        //         height: 60,
+        //         pulse: 70,
+        //         systolicPressure: 120,
+        //         diastolicPressure: 80
+        //     } 
+        // })
     }, [])
 
     const handleLogout = () => {
+        logout()
         dispatch({ type: 'LOGOUT' })
     }
 
     return <View style={styles.background}>
-        {/* <Text style={styles.text}>Contador de Pasos</Text> */}
         {/* <StepCounter /> */}
         <TouchableOpacity style={styles.logoutBtn} onPress={handleLogout}>
             <Text style={styles.logoutText}>Cerrar Sesión</Text>
@@ -53,12 +55,6 @@ const styles = StyleSheet.create({
         flex:  1,
         alignItems: 'center',
         justifyContent: 'center',
-    },
-    text: {
-        fontSize: 25,
-        textAlign: 'center',
-        fontWeight: 'bold',
-        marginTop: 20,
     },
     logoutBtn: {
         width: "90%",

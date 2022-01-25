@@ -12,7 +12,7 @@ const ModalView = ({ visible, closeModal, name, emoji, instructor, startDate, da
     const getDays = () => {
         return dayss.map(day => {
             return (
-                <View style={styles.day}>
+                <View key={day} style={styles.day}>
                     <Text style={styles.dayText}>{days[day]}</Text>
                 </View>
             )
@@ -21,7 +21,7 @@ const ModalView = ({ visible, closeModal, name, emoji, instructor, startDate, da
 
     const getSchedule = startDate => {
         const date = new Date(startDate);
-        let hours = date.getUTCHours();
+        let hours = date.getHours();
         hours = hours < 10 ? `0${hours}:00` : `${hours}:00`;
 
         return hours
