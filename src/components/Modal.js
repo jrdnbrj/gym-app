@@ -130,11 +130,7 @@ const styles = StyleSheet.create({
     },
     day: {
         backgroundColor: '#626e7e',
-        // paddingVertical: 15,
-        // marginRight: 15,
         borderRadius: 8,
-        // flexDirection: 'row',
-        // justifyContent: 'space-between',
     },
     dayText: {
         color: 'white',

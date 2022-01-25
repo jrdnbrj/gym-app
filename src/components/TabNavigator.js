@@ -6,8 +6,10 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import IonIcon from 'react-native-vector-icons/Ionicons'
 
 import Calendar from '../screens/Calendar'
-import Profile from '../screens/Profile'
+import Training from '../screens/Training'
+import Recipes from '../screens/Recipes'
 import Streaming from '../screens/Streaming'
+import Profile from '../screens/Profile'
 
 
 const Tab = createBottomTabNavigator()
@@ -24,6 +26,10 @@ const TabNavigator = () => {
                 iconName = 'desktop-sharp'
             else if(route.name === 'ProfileRoutes')
                 iconName = 'person-sharp'
+            else if(route.name === 'TrainingRoutes')
+                iconName = 'md-baseball'
+            else if(route.name === 'RecipesRoutes')
+                iconName = 'md-nutrition'
 
             return <IonIcon name={iconName} size={25} color="#0a2e63" />
         },
@@ -37,7 +43,9 @@ const TabNavigator = () => {
         <NavigationContainer>
             <Tab.Navigator initialRouteName="CalendarRoutes" screenOptions={screenOptions}>
                 <Tab.Screen name="CalendarRoutes" component={Calendar} />
-                <Tab.Screen name="StreamingRoutes" component={Streaming} screenOptions={{ headerShown: false }} />
+                <Tab.Screen name="TrainingRoutes" component={Training} />
+                <Tab.Screen name="RecipesRoutes" component={Recipes} />
+                <Tab.Screen name="StreamingRoutes" component={Streaming} />
                 <Tab.Screen name="ProfileRoutes" component={Profile} />
             </Tab.Navigator>
         </NavigationContainer>

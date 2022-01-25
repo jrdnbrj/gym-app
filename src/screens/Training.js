@@ -1,22 +1,22 @@
 import React from 'react'
 
-import Streaming from '../pages/Streaming'
+import Training from '../pages/Training'
 
 import { createStackNavigator } from '@react-navigation/stack'
 
 
 const Stack = createStackNavigator()
 
-const StreamingRoutes = () => {
-    return <Stack.Navigator initialRouteName="Streaming">
+const TrainingRoutes = () => {
+    return <Stack.Navigator initialRouteName="Training">
         <Stack.Screen 
-            name='Streaming' component={Streaming} 
+            name='Training' component={Training} 
             options={{ 
-                title: 'Streaming', 
+                title: 'Entrenamientos', 
                 header: props => {} 
             }} 
         />
     </Stack.Navigator>
 }
 
-export default StreamingRoutes
+export default TrainingRoutes
