@@ -1,7 +1,7 @@
 import React from 'react'
 import { View } from 'react-native'
 
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 
 import TabNavigator from './components/TabNavigator'
 import LoginRoutes from './screens/Login'

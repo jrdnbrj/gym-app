@@ -5,6 +5,7 @@ const client = new ApolloClient({
         uri: "http://192.168.100.68:8000/graphql",
         credentials: "include",
     }),
+    // uri: "http://192.168.100.68:8000/graphql",
     cache: new InMemoryCache(),
 })
 

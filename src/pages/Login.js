@@ -1,11 +1,36 @@
 import React, { useState } from 'react'
 import { View, Text, StyleSheet, TextInput, TouchableOpacity } from 'react-native'
 
+import { useDispatch } from 'react-redux'
+import { useMutation } from '@apollo/client'
+
+import UserLogin from '../graphql/mutation/userLogin'
+
 
 const Login = () => {
 
+    const dispatch = useDispatch()
+
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
+    const [errorMsg, setErrorMsg] = useState('')
+
+    const [userLogin, { loading, data }] = useMutation(UserLogin, {
+        onCompleted: data => {
+            console.log("Login Data:", data)
+            dispatch({ type: 'LOGIN' })
+        },
+        onError: error => {
+            console.log("Login Error:", error.message)
+            setErrorMsg(error.message)
+        }
+    })
+
+    const handleLogin = () => {
+        setErrorMsg('')
+
+        userLogin({ variables: { email, password } })
+    }
 
     return (
         <View style={styles.container}>
@@ -27,12 +52,13 @@ const Login = () => {
                     onChangeText={password => setPassword(password)}
                 />
             </View>
-            <TouchableOpacity style={styles.loginBtn}>
-                <Text style={styles.loginText}>Iniciar Sesión</Text>
+            <TouchableOpacity style={styles.loginBtn} onPress={handleLogin}>
+                <Text style={styles.loginText}>{loading ? 'Iniciando' : 'Iniciar'} Sesión</Text>
             </TouchableOpacity>
-            {/* <TouchableOpacity>
-                <Text style={styles.forgot}>Forgot Password?</Text>
-            </TouchableOpacity> */}
+            {errorMsg !== '' && 
+                <TouchableOpacity>
+                    <Text style={styles.error}>{errorMsg}</Text>
+                </TouchableOpacity>}
         </View>
     )
 }
@@ -63,9 +89,9 @@ const styles = StyleSheet.create({
         height: 50,
         color: "black"
     },
-    forgot: {
+    error: {
         color: "white",
-        fontSize: 11
+        fontSize: 15
     },
     loginBtn: {
         width: "80%",
