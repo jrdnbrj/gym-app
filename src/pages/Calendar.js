@@ -19,7 +19,7 @@ const days = [
     ['DOMINGO', 'Sunday']
 ]
 
-const Calendar = ({ navigation, user }) => {
+const Calendar = ({ user }) => {
 
     const [modalVisible, setModalVisible] = useState(false)
     const [modalData, setModalData] = useState({
