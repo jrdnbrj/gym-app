@@ -6,7 +6,7 @@ import { WebView } from 'react-native-webview'
 
 const Training = ({ navigation }) => {
     return (
-        <WebView source={{ uri: 'https://www.recetasnestle.com.ec/' }} />
+        <WebView source={{ uri: 'https://recetitasfit.com/recetas-fitness/' }} />
     )
 }
 
