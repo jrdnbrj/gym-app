@@ -25,16 +25,16 @@ const Profile = ({ navigation }) => {
     })
 
     useEffect(() => {
-        // recordCreate({ 
-        //     variables: { 
-        //         clientID: "8bd8fbb6-82c4-4dae-a83b-6c539cb2d486",
-        //         weight: 50,
-        //         height: 60,
-        //         pulse: 70,
-        //         systolicPressure: 120,
-        //         diastolicPressure: 80
-        //     } 
-        // })
+        recordCreate({ 
+            variables: { 
+                clientID: "b7430244-fd8f-48cd-8bf7-6ccbe3279a31",
+                weight: 72,
+                height: 1.69,
+                pulse: 85,
+                systolicPressure: 122,
+                diastolicPressure: 78
+            } 
+        })
     }, [])
 
     const handleLogout = () => {

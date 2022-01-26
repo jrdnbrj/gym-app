@@ -35,7 +35,7 @@ const TabNavigator = () => {
             else if(route.name === 'RecipesRoutes')
                 iconName = 'md-nutrition'
 
-            return <IonIcon name={iconName} size={25} color="#0a2e63" />
+            return <IonIcon name={iconName} size={25} color="#fb5b5a" />
         },
         "tabBarActiveBackgroundColor": "#0c62e4",
         "tabBarInactiveBackgroundColor": "#0D6EFD",

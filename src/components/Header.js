@@ -12,13 +12,13 @@ const Header = ({ route, options, back, navigation }) => {
     return <View style={styles.background}>
         {back  ? 
             <TouchableOpacity onPress={navigation.goBack}>
-                <Icon name='md-chevron-back' size={25} color='#0a2e63' />
+                <Icon name='md-chevron-back' size={25} color='#fb5b5a' />
             </TouchableOpacity> 
             : 
             <View style={{ marginHorizontal: 12 }}/> 
         }
         <Text style={styles.title}>{title}</Text>
-        <Icon name="barbell" size={25} color='#0a2e63' />
+        <Icon name="barbell" size={25} color='#fb5b5a' />
     </View>
 }
 
@@ -30,7 +30,7 @@ const styles = StyleSheet.create({
         padding: 12
     },
     title: {
-        color: '#0a2e63',
+        color: '#fb5b5a',
         fontSize: 20,
         fontWeight: 'bold',
         justifyContent: "center",

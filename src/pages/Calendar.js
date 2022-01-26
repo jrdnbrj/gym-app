@@ -21,21 +21,14 @@ const days = [
 
 const Calendar = ({ navigation, user }) => {
 
-    console.log("user:", user)
-
     const [modalVisible, setModalVisible] = useState(false)
     const [modalData, setModalData] = useState({
-        name: '',
-        emoji: '',
-        instructor: '',
-        startDate: '',
-        dayss: [],
-        price: '',
-        quotas: '',       
+        name: '', emoji: '', instructor: '', startDate: '',
+        dayss: [], price: '', quotas: '',       
     })
 
     const { loading, error, data } = useQuery(weekScheduleAll, {
-        fetchPolicy: 'only-network',
+        fetchPolicy: 'no-cache',
     })
 
     const date = new Date()

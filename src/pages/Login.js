@@ -1,6 +1,8 @@
 import React, { useState } from 'react'
 import { View, Text, StyleSheet, TextInput, TouchableOpacity } from 'react-native'
 
+import EmailValidator from 'email-validator'
+
 import { useDispatch } from 'react-redux'
 import { useMutation } from '@apollo/client'
 
@@ -29,6 +31,16 @@ const Login = () => {
     const handleLogin = () => {
         setErrorMsg('')
 
+        if (!EmailValidator.validate(email)) {
+            setErrorMsg('Tu email es incorrecto.')
+            return
+        }
+
+        if (password.length < 3) {
+            setErrorMsg('Tu contraseña es incorrecta.')
+            return
+        }
+
         userLogin({ variables: { email, password } })
     }
 
@@ -52,13 +64,14 @@ const Login = () => {
                     onChangeText={password => setPassword(password)}
                 />
             </View>
-            <TouchableOpacity style={styles.loginBtn} onPress={handleLogin}>
+            <TouchableOpacity 
+                style={loading ? styles.disabledBtn : styles.loginBtn} 
+                onPress={handleLogin} 
+                disabled={loading}
+            >
                 <Text style={styles.loginText}>{loading ? 'Iniciando' : 'Iniciar'} Sesión</Text>
             </TouchableOpacity>
-            {errorMsg !== '' && 
-                <TouchableOpacity>
-                    <Text style={styles.error}>{errorMsg}</Text>
-                </TouchableOpacity>}
+            {errorMsg !== '' && <Text style={styles.error}>{errorMsg}</Text>}
         </View>
     )
 }
@@ -96,6 +109,16 @@ const styles = StyleSheet.create({
     loginBtn: {
         width: "80%",
         backgroundColor: "#fb5b5a",
+        borderRadius: 25,
+        height: 50,
+        alignItems: "center",
+        justifyContent: "center",
+        marginTop: 40,
+        marginBottom: 10
+    },
+    disabledBtn: {
+        width: "80%",
+        backgroundColor: "#fb5b5a80",
         borderRadius: 25,
         height: 50,
         alignItems: "center",

@@ -9,13 +9,7 @@ const Stack = createStackNavigator()
 
 const RecipesRoutes = () => {
     return <Stack.Navigator initialRouteName="Recipes">
-        <Stack.Screen 
-            name='Recipes' component={Recipes} 
-            options={{ 
-                title: 'Recetas', 
-                header: props => {}
-            }} 
-        />
+        <Stack.Screen name='Recipes' component={Recipes} options={{ header: () => {} }} />
     </Stack.Navigator>
 }
 

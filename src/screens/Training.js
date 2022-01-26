@@ -9,13 +9,7 @@ const Stack = createStackNavigator()
 
 const TrainingRoutes = () => {
     return <Stack.Navigator initialRouteName="Training">
-        <Stack.Screen 
-            name='Training' component={Training} 
-            options={{ 
-                title: 'Entrenamientos', 
-                header: props => {} 
-            }} 
-        />
+        <Stack.Screen name='Training' component={Training} options={{ header: () => {} }} />
     </Stack.Navigator>
 }
 
