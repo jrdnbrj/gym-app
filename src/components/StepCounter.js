@@ -20,7 +20,10 @@ const StepCounter = () => {
     return (
         <SafeAreaView>
             <View style={styles.screen}>
+                <Text>Contador de Pasos</Text>
                 <Text style={styles.step}>{steps}</Text>
+                <Text>Pasos alcanzados hoy: 21</Text>
+                <Text>Pasos alcanzados esta semana: 49</Text>
             </View>
         </SafeAreaView>
     );
@@ -32,10 +35,13 @@ const styles = StyleSheet.create({
         height: '100%',
         display: 'flex',
         alignItems: 'center',
-        justifyContent: 'center'
+        // justifyContent: 'center'
+        marginTop: 50
+        
     },
     step: {
-        fontSize: 36
+        fontSize: 36,
+        marginBottom: 30
     }
 });
 

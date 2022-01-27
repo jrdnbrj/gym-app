@@ -23,19 +23,26 @@ const Profile = ({ user }) => {
     }
 
     return (
-        <ScrollView>
+        <ScrollView style={styles.scrollView}>
             <View style={styles.background}>
                 {/* <StepCounter /> */}
-                <HealthRecords user={user} />
+                {/* {user.isClient && <StepCounter />} */}
                 <TouchableOpacity style={styles.logoutBtn} onPress={handleLogout}>
                     <Text style={styles.logoutText}>Cerrar Sesión</Text>
                 </TouchableOpacity>
+                {(user.isAdmin || user.isInstructor) ? 
+                    <HealthRecords user={user} /> : 
+                    <StepCounter />}
             </View>
         </ScrollView>
     )
 }
 
 const styles = StyleSheet.create({
+    scrollView: {
+        flex: 1,
+        backgroundColor: '#fff',
+    },
     background:{
         flex:  1,
         alignItems: 'center',
