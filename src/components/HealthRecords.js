@@ -52,7 +52,7 @@ const HealthRecords = ({ user }) => {
     }
 
     const onChangePulse = (value) => {
-        setFormData({ ...formData, pulse: value })
+        setFormData({ ...formData, pulse: parseInt(value) })
     }
 
     const onChangeBloodPressure = (value) => {
@@ -68,6 +68,11 @@ const HealthRecords = ({ user }) => {
         return regex.test(bloodPressure);
     }
 
+    const validateNumbers = value => {
+        const regex = /^[1-9]\d*(\.\d+)?$/;
+        return regex.test(value);
+    }
+
     const handleSubmit = e => {
         console.log("formData:", formData)
         if (!formData.clientID) {
@@ -78,12 +83,24 @@ const HealthRecords = ({ user }) => {
             setErrorMsg("Ingresa el peso.");
             return;
         }
+        if (!validateNumbers(formData.weight)) {
+            setErrorMsg("El peso debe ser un número.");
+            return;
+        }
         if (!formData.height) {
             setErrorMsg("Ingresa la altura.");
             return;
         }
+        if (!validateNumbers(formData.height)) {
+            setErrorMsg("La altura debe ser un número.");
+            return;
+        }
         if (!formData.pulse) {
             setErrorMsg("Ingresa el pulso.");
+            return;
+        }
+        if (!validateNumbers(formData.pulse)) {
+            setErrorMsg("El pulso debe ser un número.");
             return;
         }
         if (!formData.bloodPressure) {
