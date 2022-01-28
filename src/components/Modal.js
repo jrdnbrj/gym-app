@@ -1,5 +1,8 @@
 import React, { useState } from 'react'
-import { View, Text, StyleSheet, TouchableOpacity, Modal, Pressable } from 'react-native'
+import { 
+    View, Text, StyleSheet, TouchableOpacity, 
+    Modal, ActivityIndicator 
+} from 'react-native'
 
 
 const days = {
@@ -7,7 +10,12 @@ const days = {
     Friday: 'Vi', Saturday: 'Sa', Sunday: 'Do'
 }
 
-const ModalView = ({ visible, closeModal, name, emoji, instructor, startDate, dayss, price, quotas }) => {
+const ModalView = props => {
+
+    const { 
+        visible, closeModal, name, emoji, instructor, startDate, dayss, 
+        price, quotas, busy, unavailable, bookClass, remove, loading 
+    } = props;
 
     const getDays = () => {
         return dayss.map(day => {
@@ -39,12 +47,12 @@ const ModalView = ({ visible, closeModal, name, emoji, instructor, startDate, da
         >
             <View style={styles.centeredView}>
                 <View style={styles.modalView}>
-                    <Pressable style={styles.x} onPress={closeModal}>
+                    <TouchableOpacity style={styles.x} onPress={closeModal}>
                         <Text style={styles.xText}>X</Text>
-                    </Pressable>
+                    </TouchableOpacity>
                     <View style={styles.rowTitle}>
-                        <Text style={styles.text}>Clase de </Text>
-                        <Text style={styles.title}>{name} {emoji}</Text>
+                        <Text style={styles.textWhite}>Clase de </Text>
+                        <Text style={styles.titleWhite}>{name} {emoji}</Text>
                     </View>
                     <View style={styles.row}>
                         <Text style={styles.title}>Instructor: </Text>
@@ -62,6 +70,15 @@ const ModalView = ({ visible, closeModal, name, emoji, instructor, startDate, da
                         <Text style={styles.title}>Cupos: </Text>
                         <Text style={styles.text}>{quotas}</Text>
                     </View>
+                    {!unavailable && (busy ?
+                        <TouchableOpacity style={styles.bookClass} onPress={remove}>
+                            {loading.removingStudent &&<ActivityIndicator color="white" />}
+                            <Text style={styles.titleWhite}>Eliminar Reservar</Text>
+                        </TouchableOpacity> :
+                        <TouchableOpacity style={styles.bookClass} onPress={bookClass}>
+                            {loading.addingStudent && <ActivityIndicator color="white" />}
+                            <Text style={styles.titleWhite}>Reservar</Text>
+                        </TouchableOpacity>)}
                 </View>
             </View>
         </Modal>
@@ -138,6 +155,26 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         marginHorizontal: 6,
         marginVertical: 3,
+    },
+    bookClass: {
+        flexDirection: 'row',
+        backgroundColor: '#fb5b5a',
+        justifyContent: 'center',
+        padding: 10,
+        borderRadius: 20,
+        opacity: 0.7,
+        alignItems: 'center',
+        marginTop: 15,
+    },
+    titleWhite: {
+        color: 'white',
+        fontSize: 22,
+        fontWeight: 'bold',
+        marginLeft: 5,
+    },
+    textWhite: {
+        color: 'white',
+        fontSize: 20,
     }
 })
 
