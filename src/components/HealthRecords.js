@@ -59,7 +59,7 @@ const HealthRecords = ({ user }) => {
 
     const onChangePulse = pulse => {
         if (!validateNumbers(pulse))
-            setErrorMsg("La presión debe ser un número.")
+            setErrorMsg("El pulso debe ser un número.")
         else setErrorMsg("")
 
         setFormData({ ...formData, pulse: parseInt(pulse) })
