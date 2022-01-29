@@ -35,9 +35,7 @@ const Calendar = ({ user }) => {
         dayss: [], price: '', quotas: '',       
     })
 
-    const { loading, error, data, refetch } = useQuery(weekScheduleAll, {
-        fetchPolicy: 'no-cache',
-    })
+    const { loading, error, data, refetch } = useQuery(weekScheduleAll)
     const [addStudent, { loading: addingStudent }] = useMutation(
         weekScheduleAddStudent, {
             onCompleted: () => {

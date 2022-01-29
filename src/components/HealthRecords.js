@@ -39,27 +39,37 @@ const HealthRecords = ({ user }) => {
         }
     })
 
-    const onChangeClientID = (value) => {
-        setFormData({ ...formData, clientID: value })
+    const onChangeClientID = clientID => setFormData({ ...formData, clientID })
+
+    const onChangeWeight = weight => {
+        if (!validateNumbers(weight))
+            setErrorMsg("El peso debe ser un número.")
+        else setErrorMsg("")
+        
+        setFormData({ ...formData, weight })
     }
 
-    const onChangeWeight = (value) => {
-        setFormData({ ...formData, weight: value })
+    const onChangeHeight = height => {
+        if (!validateNumbers(height))
+            setErrorMsg("La altura debe ser un número.")
+        else setErrorMsg("")
+
+        setFormData({ ...formData, height })
     }
 
-    const onChangeHeight = (value) => {
-        setFormData({ ...formData, height: value })
-    }
+    const onChangePulse = pulse => {
+        if (!validateNumbers(pulse))
+            setErrorMsg("La presión debe ser un número.")
+        else setErrorMsg("")
 
-    const onChangePulse = (value) => {
-        setFormData({ ...formData, pulse: parseInt(value) })
+        setFormData({ ...formData, pulse: parseInt(pulse) })
     }
 
     const onChangeBloodPressure = (value) => {
-        if (!validateBloodPressure(value)) {
+        if (!validateBloodPressure(value))
             setErrorMsg("La presión arterial debe tener el formato: 120/80.")
-        } else
-            setErrorMsg("")
+        else setErrorMsg("")
+
         setFormData({ ...formData, bloodPressure: value })
     }
 
@@ -138,11 +148,11 @@ const HealthRecords = ({ user }) => {
                 ))}
             </Picker>
             <Text style={styles.info}>Ingresa el peso en Kg.</Text>
-            <TextInput style={styles.input} onChangeText={onChangeWeight} value={formData.weight} />
+            <TextInput keyboardType='numeric' style={styles.input} onChangeText={onChangeWeight} value={formData.weight} />
             <Text style={styles.info}>Ingresa la altura en m.</Text>
-            <TextInput style={styles.input} onChangeText={onChangeHeight} value={formData.height} />
+            <TextInput keyboardType='number-pad' style={styles.input} onChangeText={onChangeHeight} value={formData.height} />
             <Text style={styles.info}>Ingresa el pulso en bpm.</Text>
-            <TextInput style={styles.input} onChangeText={onChangePulse} value={formData.pulse} />
+            <TextInput keyboardType='numeric' style={styles.input} onChangeText={onChangePulse} value={formData.pulse} />
             <Text style={styles.info}>Ingresa la presión arterial en mmHg.</Text>
             <TextInput style={styles.input} onChangeText={onChangeBloodPressure} value={formData.bloodPressure} />
             {errorMsg !== '' && <Text style={styles.errorMsg}>{errorMsg}</Text>}
